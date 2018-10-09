@@ -7,6 +7,8 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 import android.util.Log;
 
+import java.util.Random;
+
 /**
  * class PigLocalGame controls the play of the game
  *
@@ -14,12 +16,13 @@ import android.util.Log;
  * @version February 2016
  */
 public class PigLocalGame extends LocalGame {
-
+    PigGameState pgs;
     /**
      * This ctor creates a new game state
      */
     public PigLocalGame() {
         //TODO  You will implement this constructor
+        pgs = new PigGameState();
     }
 
     /**
@@ -28,7 +31,8 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected boolean canMove(int playerIdx) {
         //TODO  You will implement this method
-        return false;
+        if(pgs.getPlayerTurn() == playerIdx) return true;
+        else return false;
     }
 
     /**
@@ -39,7 +43,43 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         //TODO  You will implement this method
-        return false;
+        if(!(action instanceof PigRollAction || action instanceof PigHoldAction)) return false;
+        if(action instanceof  PigHoldAction)
+        {
+            if(pgs.getPlayerTurn() == 0)
+            {
+                pgs.setPlayer1Score(pgs.getPlayer1Score()+pgs.getCurrentTotal());
+                pgs.setCurrentTotal(0);
+                pgs.setPlayerTurn(pgs.getPlayerTurn()+1);
+                return true;
+            }
+            else
+            {
+                pgs.setPlayer2Score(pgs.getPlayer2Score()+pgs.getCurrentTotal());
+                pgs.setCurrentTotal(0);
+                pgs.setPlayerTurn(pgs.getPlayerTurn()-1); //check that its more than one player
+                return true;
+            }
+        }
+        else
+        {
+            Random rand = new Random();
+            int die = rand.nextInt(6) + 1;
+            if(pgs.getPlayerTurn() == 0)
+            {
+                if(die != 1) pgs.setCurrentTotal(die + pgs.getCurrentTotal());
+                else pgs.setCurrentTotal(0);
+                pgs.setPlayerTurn(pgs.getPlayerTurn()+1);
+                return true;
+            }
+            else
+            {
+                if(die != 1) pgs.setCurrentTotal(die + pgs.getCurrentTotal());
+                else pgs.setCurrentTotal(0);
+                pgs.setPlayerTurn(pgs.getPlayerTurn()-1); //check that its more than one player
+                return true;
+            }
+        }
     }//makeMove
 
     /**
@@ -48,6 +88,8 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         //TODO  You will implement this method
+        PigGameState newState = new PigGameState(pgs);
+        p.sendInfo(newState);
     }//sendUpdatedSate
 
     /**
@@ -60,7 +102,9 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
         //TODO  You will implement this method
-        return null;
+        if(pgs.getPlayer1Score() > 50) return "Player 1 has won the game with a score of " + pgs.getPlayer1Score()+"!";
+        else if(pgs.getPlayer2Score() > 50 ) return "Player 2 has won the game with a score of"+pgs.getPlayer2Score()+"!";
+        else return null;
     }
 
 }// class PigLocalGame
