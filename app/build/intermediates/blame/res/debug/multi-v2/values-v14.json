@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "P:\\StudioProjects\\CS371PigGameStarter\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "outputFile": "P:\\StudioProjects\\CS371_Lab7\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
             "map": [
                 {
-                    "source": "P:\\StudioProjects\\CS371PigGameStarter\\app\\src\\main\\res\\values-v14\\styles.xml",
+                    "source": "P:\\StudioProjects\\CS371_Lab7\\app\\src\\main\\res\\values-v14\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
