@@ -68,16 +68,22 @@ public class PigLocalGame extends LocalGame {
             if(pgs.getPlayerTurn() == 0)
             {
                 if(die != 1) pgs.setCurrentTotal(die + pgs.getCurrentTotal());
-                else pgs.setCurrentTotal(0);
-                if(players.length > 1) pgs.setPlayerTurn(pgs.getPlayerTurn()+1);
-                return true;
+                else {
+                    pgs.setCurrentTotal(0);
+
+                    if (players.length > 1) pgs.setPlayerTurn(pgs.getPlayerTurn() + 1);
+                    return true;
+                }
             }
-            else
-            {
-                if(die != 1) pgs.setCurrentTotal(die + pgs.getCurrentTotal());
-                else pgs.setCurrentTotal(0);
-                if(players.length > 1) pgs.setPlayerTurn(pgs.getPlayerTurn()-1); //check that its more than one player
-                return true;
+            else {
+                if (die != 1) pgs.setCurrentTotal(die + pgs.getCurrentTotal());
+                else {
+                    pgs.setCurrentTotal(0);
+
+                    if (players.length > 1)
+                        pgs.setPlayerTurn(pgs.getPlayerTurn() - 1); //check that its more than one player
+                    return true;
+                }
             }
         }
     }//makeMove
