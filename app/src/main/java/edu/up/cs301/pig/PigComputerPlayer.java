@@ -36,7 +36,7 @@ public class PigComputerPlayer extends GameComputerPlayer {
         if(info instanceof PigGameState) {
             pgs = (PigGameState) info;
 
-            if (pgs.getPlayerTurn() != playerNum) return; // not turn, return
+            if (pgs.getPlayerTurn() != this.playerNum) return; // not turn, return
             else {
                 Random rand = new Random();
                 int i = rand.nextInt(2);
@@ -48,7 +48,6 @@ public class PigComputerPlayer extends GameComputerPlayer {
                         LocalGame lg = (LocalGame) game;
                         lg.sendAction(pg);
                     }
-
                 }
                 else
                 {
